@@ -1,0 +1,272 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Api de Caixa Registradora",
+    "description": "Uma aplicação de caixa de registradora que recebe dinheiro e realiza transações.",
+    "license": {
+      "name": "Copyright",
+      "url": "https://www.github.com/raonhn"
+    },
+    "version": "v1",
+    "contact": {
+      "name": "Nathan Oliveira",
+      "email": "nathanraoliveira@gmail.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "localhost:5031"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Config",
+      "description": "Endpoints de Configuração da API"
+    },
+    {
+      "name": "Caixa Regitradora",
+      "description": "Endpoints da Api da caixa registradora"
+    }
+  ],
+  "paths": {
+    "/hccaixa": {
+      "get": {
+        "tags": [
+          "Config"
+        ],
+        "summary": "Verifica a disponibilidade da API",
+        "description": "EndPoint que devolve que está tudo ok com a api e a hora em que ela foi ativada",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "example": "Tudo certo!\nApi ligada desde de: dd/mm/yyyy HH:mm:ss"
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+              }
+            }
+          }
+        }
+      }
+    },
+    "/vercaixa": {
+      "get": {
+        "tags": [
+          "Caixa Regitradora"
+        ],
+        "summary": "Verifica as notas do caixa",
+        "description": "Exibe uma lista das notas disponiveis na caixa registradora",
+        "responses": {
+          "200": {
+            "description": "Mostra as notas e a quantidade de cada nota que tem disponivel na caixa registradora.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerCaixaResponse"
+                },
+                "example": {
+                  "message": "Visualizando caixa",
+                  "item": [
+                    {
+                      "valor": 1,
+                      "qtd": 1
+                    },
+                    {
+                      "valor": 0.25,
+                      "qtd": 4
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Sem conteudo na caixa registradora"
+          }
+        }
+      }
+    },
+    "/add": {
+      "post": {
+        "tags": [
+          "Caixa Regitradora"
+        ],
+        "summary": "Adiciona dinheiro no caixa",
+        "description": "Adiciona uma ou mais Notas ou moedas na caixa registradora",
+        "requestBody": {
+          "description": "Deve ser enviado uma Nota, que possui os atributos valor e quantidade que significa o valor da nota e a quantidade de notas desse valor que vão ser enviados.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Nota"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Dinheiro adicionado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerCaixaResponse"
+                },
+                "example": {
+                  "message": "Dinheiro adicionado com sucesso",
+                  "item": [
+                    {
+                      "valor": 2,
+                      "qtd": 1
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "O usuario mandou algo impossivel de adicionar",
+            "content": {
+              "application/json": {
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transacao": {
+      "post": {
+        "tags": [
+          "Caixa Regitradora"
+        ],
+        "summary": "Realiza uma transação",
+        "description": "Realiza uma transação na caixa registradora e devolve o troco das notas recebidas",
+        "requestBody": {
+          "description": "Deve ser enviado um valor total da compra em double, e uma lista de notas com valor da nota e quantidade dessa nota, em que a soma de todas devem ser igual ou maior que o valor total da compra. ",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Transacao"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Devolve o troco e uma mensagem de sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransacaoResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro não registrado",
+            "content": {
+              "application/json": {
+              }
+            }
+          },
+          "406": {
+            "description": "O valor recebido não cobre o valor da transação",
+            "content": {
+              "application/json": {
+              }
+            }
+          },
+          "500": {
+            "description": "O troco disponivel no caixa não é o suficiente para devolver",
+            "content": {
+              "application/json": {
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Nota": {
+        "type": "object",
+        "properties": {
+          "valor": {
+            "description": "O valor da nota/moeda",
+            "type": "number",
+            "format": "double",
+            "example": 0.25
+          },
+          "qtd": {
+            "description": "A quantidade de notas daquele valor",
+            "type": "integer",
+            "format": "int32",
+            "example": 1
+          }
+        },
+        "additionalProperties": false
+      },
+      "Transacao": {
+        "type": "object",
+        "properties": {
+          "valor": {
+            "description": "o valor total da transação",
+            "type": "number",
+            "format": "double",
+            "example": 0
+          },
+          "notasRecebidas": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Nota"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "VerCaixaResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "É uma mensagem de sucesso",
+            "example": "Exibindo valor na caixa"
+          },
+          "item": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Nota"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransacaoResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "É uma mensagem de sucesso",
+            "example": "Transação realizada com sucesso"
+          },
+          "item": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Nota"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

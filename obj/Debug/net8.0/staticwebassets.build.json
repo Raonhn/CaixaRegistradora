@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "wV4uFrUbqdXazyQBDjf/wTH88c2UKhN/PkjZDT0+epA=",
+  "Source": "CaixaRegistradora",
+  "BasePath": "_content/CaixaRegistradora",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "CaixaRegistradora\\wwwroot",
+      "Source": "CaixaRegistradora",
+      "ContentRoot": "C:\\Users\\natha\\Desktop\\Projetos\\CaixaRegistradora\\CaixaRegistradora\\wwwroot\\",
+      "BasePath": "_content/CaixaRegistradora",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}
