@@ -16,7 +16,7 @@ A API é projetada para gerenciar uma caixa registradora, permitindo as seguinte
 
 #### **Verificar Disponibilidade da API**
 - **Método:** `GET`
-- **URL:** `/hccaixa`
+- **URL:** `/health-check`
 - **Descrição:** Retorna a mensagem "Tudo certo!" junto com a hora de ativação da API.
 - **Códigos de Resposta:**
   - `200 OK` - API disponível.
