@@ -718,11 +718,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\natha\\Desktop\\Projetos\\CaixaRegistradora\\CaixaRegistradora\\CaixaRegistradora.csproj",
+      "projectUniqueName": "C:\\Users\\natha\\Desktop\\Projetos\\CaixaRegistradora\\CaixaRegistradora.csproj",
       "projectName": "CaixaRegistradora",
-      "projectPath": "C:\\Users\\natha\\Desktop\\Projetos\\CaixaRegistradora\\CaixaRegistradora\\CaixaRegistradora.csproj",
+      "projectPath": "C:\\Users\\natha\\Desktop\\Projetos\\CaixaRegistradora\\CaixaRegistradora.csproj",
       "packagesPath": "C:\\Users\\natha\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\natha\\Desktop\\Projetos\\CaixaRegistradora\\CaixaRegistradora\\obj\\",
+      "outputPath": "C:\\Users\\natha\\Desktop\\Projetos\\CaixaRegistradora\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\natha\\AppData\\Roaming\\NuGet\\NuGet.Config"

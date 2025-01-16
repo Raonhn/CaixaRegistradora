@@ -29,7 +29,7 @@
     }
   ],
   "paths": {
-    "/hccaixa": {
+    "/health-check": {
       "get": {
         "tags": [
           "Config"
