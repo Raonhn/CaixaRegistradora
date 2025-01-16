@@ -100,7 +100,7 @@ A API é projetada para gerenciar uma caixa registradora, permitindo as seguinte
    ```
 5. Acesse a API em `http://localhost:5031`.
 
-## 🧪 Testes
+## 🧪 Testes (Não Disponiveis)
 
 Execute os testes com o seguinte comando:
 ```bash
